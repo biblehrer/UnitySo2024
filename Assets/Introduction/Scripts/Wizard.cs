@@ -5,7 +5,7 @@ using UnityEngine;
 public class Wizard : MonoBehaviour
 {
     public GameObject fireballPrefab;
-    private float counter = 0;
+    private float counter = 5;
     private Vector3 lastMovement = Vector3.zero;
 
     // Start is called before the first frame update
@@ -49,7 +49,7 @@ public class Wizard : MonoBehaviour
         //GetKomponent<Fireball>().
         // Casting
         counter += Time.deltaTime;
-        if (counter > 2 && Input.GetKeyDown(KeyCode.Space))
+        if (counter > 1 && Input.GetKeyDown(KeyCode.Space))
         {
             GameObject obj = Instantiate(fireballPrefab, transform.position, Quaternion.identity);
             obj.GetComponent<Fireball>().direction = lastMovement;

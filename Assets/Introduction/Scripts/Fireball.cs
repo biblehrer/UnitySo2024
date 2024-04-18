@@ -42,4 +42,10 @@ public class Fireball : MonoBehaviour
     {
         transform.position = transform.position + direction * Time.deltaTime * 4;
     }
+
+    void OnCollisionEnter2D(Collision2D collision2D)
+    {
+        Destroy(gameObject);
+    }
+
 }
