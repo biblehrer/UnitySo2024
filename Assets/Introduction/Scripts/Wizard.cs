@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class Wizard : MonoBehaviour
 {
+    public static Wizard Instance;
+
     public GameObject fireballPrefab;
     private float counter = 5;
     private Vector3 lastMovement = Vector3.zero;
+    private Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        Instance = this;
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -44,6 +48,24 @@ public class Wizard : MonoBehaviour
         {
             lastMovement=movement;
         }
+
+        // Animation
+        if (movement.y != 0 || movement.x != 0)
+        {
+            animator.SetBool("Walking", true);
+        }
+        else
+        {
+            animator.SetBool("Walking", false);
+        }
+        if (movement.x < 0)
+        {
+            transform.localScale = new Vector3(-1,1,1);
+        }
+        if (movement.x > 0)
+        {
+            transform.localScale = new Vector3(1,1,1);
+        }
         
 
         //GetKomponent<Fireball>().
@@ -54,7 +76,13 @@ public class Wizard : MonoBehaviour
             GameObject obj = Instantiate(fireballPrefab, transform.position, Quaternion.identity);
             obj.GetComponent<Fireball>().direction = lastMovement;
             counter = 0;
+            animator.SetBool("Attack", true);
         }
+
+        if (Input.GetKeyUp(KeyCode.Space)) {
+            animator.SetBool("Attack", false);
+        }
+
 
         
     }
