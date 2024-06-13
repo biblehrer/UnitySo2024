@@ -10,15 +10,20 @@ public class Wizard : MonoBehaviour
     private Vector3 lastMovement = Vector3.zero;
     private Animator animator;
 
-    public int health = 100;
+    public float health = 100;
     public float mana = 50;
 
-    public Playerstats stats;
+    public static Playerstats stats;
 
     // Start is called before the first frame update
     void Start()
     {
-        stats = new Playerstats();
+        health = stats.maxHealth;
+        mana =  stats.maxMana;
+        if (stats == null)
+        {
+            stats = new Playerstats();
+        }
         Instance = this;
         animator = GetComponent<Animator>();
     }
@@ -76,7 +81,7 @@ public class Wizard : MonoBehaviour
         //GetKomponent<Fireball>().
         // Casting
         counter += Time.deltaTime;
-        if (counter > stats.castingTime && Input.GetKeyDown(KeyCode.Space))
+        if (counter > stats.castingTime && Input.GetKeyDown(KeyCode.Space) && mana >= 5)
         {
             GameObject obj = Instantiate(fireballPrefab, transform.position, Quaternion.identity);
             obj.GetComponent<Fireball>().direction = lastMovement;

@@ -32,7 +32,7 @@ public class Target : MonoBehaviour
             Hud.score += 1;
 
             Wizard player = Wizard.Instance;
-            Playerstats playerstats= player.stats;
+            Playerstats playerstats= Wizard.stats;
             playerstats.GetXp(1);
 
         }        
