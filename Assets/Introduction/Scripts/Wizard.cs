@@ -18,12 +18,12 @@ public class Wizard : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        health = stats.maxHealth;
-        mana =  stats.maxMana;
         if (stats == null)
         {
             stats = new Playerstats();
         }
+        health = stats.maxHealth;
+        mana =  stats.maxMana;
         Instance = this;
         animator = GetComponent<Animator>();
     }
@@ -31,6 +31,11 @@ public class Wizard : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.Instance.state2 == GameManager.GameStates.paused)
+        {
+            return;
+        }
+
         // Movement
         Vector3 movement = new Vector3(0,0,0);
         if (Input.GetKey("w"))

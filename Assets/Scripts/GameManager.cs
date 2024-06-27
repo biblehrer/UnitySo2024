@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public GameStates state2 = GameStates.inTitle;
     public string state =  "inTitle";
 
+    public Pause pauseMenu;
+
     private float Counter = 0;
 
 
@@ -33,13 +35,27 @@ public class GameManager : MonoBehaviour
         if (state == "inGame")
         {
             Counter += Time.deltaTime;
-            if (Counter > 15)
+            if (Counter > 90)
             {
-                SceneManager.LoadScene("Title");
-                state =  "inTitle";
-                state2 = GameStates.inTitle;
+                GoToTitle();
                 Counter = 0;
             }
+
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                pauseMenu.ToggleActive();
+                /*if (pauseMenu.gameObject.activeSelf)
+                {
+                    pauseMenu.gameObject.SetActive(false);
+                }
+                else
+                {
+                    pauseMenu.gameObject.SetActive(true);
+                }
+                //pauseMenu.gameObject.SetActive(!pauseMenu.gameObject.activeSelf);*/
+            }
+
         }
 
         Input.GetKeyDown(KeyCode.Escape);
@@ -52,5 +68,12 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Game");
         Instance.state =  "inGame";
         Instance.state2 = GameStates.inGame;
+    }
+
+    public static void GoToTitle()
+    {
+        SceneManager.LoadScene("Title");
+        Instance.state =  "inTitle";
+        Instance.state2 = GameStates.inTitle;
     }
 }
