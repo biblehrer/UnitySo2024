@@ -1,0 +1,65 @@
+Aufgabe 1 
+
+Erstelle ein neues Game Objekt für Gegner. 
+
+Füge dem Objekt die Komponenten Sprite Renderer und ein neues Skript hinzu. 
+
+Füge dem Objekt einen Rigidbody2D und einen Collider 2D hinzu.  
+
+Optional: Füge eine Temporäre Grafik für den Gegner hinzu.  
+
+Wenn der Gegner mit dem Feuerball kollidiert, werden beide Objekte zerstört. 
+
+Wenn der Gegner mit dem Spieler kollidiert, wird der Gegner zerstört und der Spieler verliert Lebenspunkte. 
+
+Jedes Frame soll sich der Gegner mit einer gleichbleibenden Geschwindigkeit in die Richtung des Spielers bewegen.  
+
+Beim Pausieren pausiert auch der Gegner. 
+
+Mache aus dem Objekt ein Prefab. 
+
+Temporär: Immer, wenn ein Gegner zerstört wird, soll ein neuer Gegner spawnen.  
+
+Tipp: Wir können einen künstlichen Delay hinzufügen indem wir den Gegner außerhalb unserer Kamera spawnen.  
+
+Zusätzliche Ziele 
+
+Wenn der Spieler keine Lebenspunkte mehr hat, heißt es Game Over, da wir keinen entsprechenden State oder Bildschirm dafür haben, wird man einfach zurück zum Startbildschirm gebracht. 
+
+Beim Start des Spieles sollte der Spieler wieder volles Leben haben.  
+
+Gegner geben XP. 
+
+Gegner sollen nicht im Zentrum des Spielfelds spawnen. 
+
+Hilfreicher Code 
+
+Destroy(collision2D.gameObject); 
+
+movement.normalized 
+
+ 
+
+ 
+
+Aufgabe 2 
+
+Füge dem Gegner die Stats Lebenspunkte, Speed und Damage hinzu. 
+
+Zerstöre den Gegner, wenn dessen Lebenspunkte auf 0 sinken. 
+
+Statt direkt zerstört zu werden verliert der Gegner Lebenspunkte, wenn er vom Feuerball getroffen wird. Der Feuerball wird nach wie vor zerstört. 
+
+Wenn der Gegner den Spieler berührt, erhält dieser Schaden entsprechend des Gegners Damage Werts. 
+
+Füge dem Spieler einen Unverwundbarkeit Counter hinzu der immer, wenn er Schaden nimmt, gesetzt wird und jedes Frame heruntergezählt wird. 
+
+Solange der Counter größer als 0 kann der Spieler keinen Schaden erhalten. 
+
+ 
+
+Zusätzliche Ziele 
+
+Füge einen Visuellen Effekt hinzu, während der Spieler unverwundbar ist. 
+
+ 
