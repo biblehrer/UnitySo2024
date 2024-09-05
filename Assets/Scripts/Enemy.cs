@@ -6,31 +6,42 @@ public class Enemy : MonoBehaviour
 {
     public GameObject enemyPrefab;
 
+    public float hp = 20;
+    public float movementSpeed = 1.5f;
+    public float damage = 20;
+
     // Update is called once per frame
     void Update()
     {
+        if (hp <= 0)
+        {
+            Destroy(gameObject);
+        }
+
         Vector3 playerPosition = Wizard.Instance.transform.position;
         Vector3 direction = playerPosition - transform.position;
-        transform.position += direction.normalized*Time.deltaTime * 1f;
+        transform.position += direction.normalized*Time.deltaTime * movementSpeed;
     }
 
     void OnCollisionEnter2D(Collision2D collision2D)
     {
-        //var t = (Random.value>0.5) ? 1: -1;
-        float x = Random.Range(-10,10) * 1;
-        float y = Random.Range(-10,10);
+        float x = Random.Range(5,10) * ((Random.value>0.5) ? 1: -1);
+        float y = Random.Range(5,10) * ((Random.value>0.5) ? 1: -1);
         if (collision2D.gameObject.tag == "Projectille")
-        {       
-            Instantiate(enemyPrefab, new Vector3(x,y,0), Quaternion.identity);
-            Destroy(collision2D.gameObject);
-            Destroy(gameObject);            
+        {   
+            Fireball fireball = collision2D.transform.GetComponent<Fireball>();
+            hp -= fireball.damage;
+
+            if (hp <= 0)
+            {
+                Destroy(gameObject);
+            }
+     
             return;
         }
         if (collision2D.gameObject.tag == "Player")
-        {
-            Instantiate(enemyPrefab, new Vector3(x,y,0), Quaternion.identity);
-            Wizard.Instance.health -= 10;
-            Destroy(gameObject);            
+        {            
+            Wizard.Instance.TakeDamage(damage);                     
             return;
         }
     }

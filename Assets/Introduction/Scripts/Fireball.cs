@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 public class Fireball : MonoBehaviour
 {
     public Vector3 direction = Vector3.up;
+    public float damage = 20;
 
     // Start is called before the first frame update
     void Start()

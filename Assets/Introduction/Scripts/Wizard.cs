@@ -10,6 +10,8 @@ public class Wizard : MonoBehaviour
     private Vector3 lastMovement = Vector3.zero;
     private Animator animator;
 
+    private float invincibleCounter = 0;
+
     public float health = 100;
     public float mana = 50;
 
@@ -31,10 +33,17 @@ public class Wizard : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (health <= 0)
+        {
+            GameManager.GoToTitle();
+        }
+
         if (GameManager.Instance.state2 == GameManager.GameStates.paused)
         {
             return;
         }
+
+        
 
         // Movement
         Vector3 movement = new Vector3(0,0,0);
@@ -106,7 +115,16 @@ public class Wizard : MonoBehaviour
             mana = stats.maxMana;
         }
 
-
+        invincibleCounter -= Time.deltaTime;
         
+    }
+
+    public void TakeDamage(float damage) 
+    {
+        if (invincibleCounter <= 0)
+        {
+            health -= damage;
+            invincibleCounter = 1f;
+        }
     }
 }

@@ -1166,6 +1166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state2: 0
   state: inTitle
+  pauseMenu: {fileID: 0}
 --- !u!4 &1533564642
 Transform:
   m_ObjectHideFlags: 0

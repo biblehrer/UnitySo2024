@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 
     public Pause pauseMenu;
 
-    private float Counter = 0;
+    private float pauseCounter = 0;
 
 
     // Start is called before the first frame update
@@ -34,11 +34,11 @@ public class GameManager : MonoBehaviour
     {
         if (state == "inGame")
         {
-            Counter += Time.deltaTime;
-            if (Counter > 90)
+            pauseCounter += Time.deltaTime;
+            if (pauseCounter > 90)
             {
                 GoToTitle();
-                Counter = 0;
+                pauseCounter = 0;
             }
 
 
