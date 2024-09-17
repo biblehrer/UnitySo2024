@@ -12,6 +12,8 @@ public class Wizard3D : MonoBehaviour
     private float health;
     private float mana;
     private float castingCounter = 0;
+    private Animator animator;
+    private float speed; 
 
 
 
@@ -24,7 +26,9 @@ public class Wizard3D : MonoBehaviour
             stats = new Playerstats();
         }  
         health = stats.maxHealth;
-        mana = stats.maxMana;      
+        mana = stats.maxMana;  
+        animator = GetComponent<Animator>();    
+        speed = stats.movementSpeed;
     }
 
     // Update is called once per frame
@@ -61,9 +65,14 @@ public class Wizard3D : MonoBehaviour
 
         if (movement.magnitude > 0)
         {
+            animator.SetBool("walking", true);
             lastDirection = movement;
             Rotate();
-            transform.position += movement.normalized*Time.deltaTime* stats.movementSpeed;
+            transform.position += movement.normalized*Time.deltaTime* speed;
+        }
+        else
+        {
+            animator.SetBool("walking", false);
         }
         
     }
@@ -83,6 +92,8 @@ public class Wizard3D : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            animator.SetBool("attacking", true);
+            StartCoroutine(attackingAnimationTimer());
             GameObject obj = Instantiate(fireballPrefab, transform.position + lastDirection + Vector3.up, Quaternion.identity);
             obj.GetComponent<Fireball3D>().direction = lastDirection;
             castingCounter = stats.castingTime;
@@ -97,6 +108,16 @@ public class Wizard3D : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
+    }
+
+    IEnumerator attackingAnimationTimer()
+    {
+        // nichts
+        speed = 0;
+        yield return new WaitForSeconds(1f);
+        // nach zwei Sekunde
+        animator.SetBool("attacking", false);
+        speed = stats.movementSpeed;
     }
 
 }
